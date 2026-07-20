@@ -104,12 +104,15 @@ QUERIES = [
 ]
 
 
-def main():
+def main(argv=None):
+    # argv=None -> read the command line (normal `python capture_vna_format.py`).
+    # Pass a list instead to call this from a notebook, e.g. main([]) or
+    # main(['--allow-select']), which avoids parsing Jupyter's own arguments.
     ap = argparse.ArgumentParser()
     ap.add_argument('--address', default=DEFAULT_ADDRESS)
     ap.add_argument('--allow-select', action='store_true',
                     help='Permit ONE write (CALC:PAR:SEL) to select an existing trace.')
-    args = ap.parse_args()
+    args = ap.parse_args(argv)
 
     try:
         import pyvisa
